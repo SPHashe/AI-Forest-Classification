@@ -22,7 +22,7 @@ class_names = ["Desert", "Forest"]
 img_path = "C:/Users/parsa/Desktop/test_image.jpg"  # Replace with your test image path
 
 
-def Predict_Image(prediction_img, model):
+def Predict_Image(prediction_img, model): #This is to compare to outide modle to check accuracy
     img = image.load_img(prediction_img, target_size=(256, 256, 3))
     model.predict(img)
     predictions = model.predict(img)
@@ -75,10 +75,8 @@ model.add(Flatten())
 model.add(Dense(128, activation='relu'))
 model.add(Dense(1, activation='sigmoid'))  # Use 3 neurons and softmax for 3 classes
 
-# Compile with categorical crossentropy
 model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
 model.fit(training_set, validation_data = testing_set, epochs = 4, verbose = 1)
 
-print("The input image is: ", Predict_Image(img_path, model))  
-
 loss, acc = model.evaluate(training_set, verbose = 0)
+print("Accuracy of the model:", acc)
